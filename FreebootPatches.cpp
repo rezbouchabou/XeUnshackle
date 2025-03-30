@@ -248,3 +248,23 @@ VOID RestoreRoL()
     BYTE rol_led_buf[0x10] = { 0x99,0x00,0x00,0,0,0,0,0,0,0,0,0,0,0,0,0 };
     HalSendSMCMessage(rol_led_buf, NULL);
 }
+
+
+// Patches to fix various things
+const BYTE ADDITIONAL_PATCHES[] = {
+    // Wipes HvpProtectedFlags that have been set on boot due to patches not being in place
+    // This should hopefully fix at least one issue. (dvd drive checks causing "The disc is unreadable" error when running xex files extracted from discs)
+    0x00, 0x01, 0x66, 0x18, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+
+    // End of patches
+    0xFF, 0xFF, 0xFF, 0xFF
+};
+
+VOID ApplyAdditionalPatches()
+{
+    cprintf("[ApplyAdditionalPatches] Attempting to apply additional patches for fixes etc...");
+
+    DWORD NumPatchesApplied = ApplyPatches(NULL, ADDITIONAL_PATCHES);
+
+    cprintf("[ApplyAdditionalPatches] %i patches applied!", NumPatchesApplied);
+}

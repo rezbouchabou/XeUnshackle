@@ -24,7 +24,7 @@
 
 #include "stdafx.h"
 
-FLOAT APP_VERS = 1.01;
+FLOAT APP_VERS = 1.02;
 
 const CHAR* g_strMovieName = "embed:\\VID";
 
@@ -411,6 +411,8 @@ VOID __cdecl main()
             cprintf("[XeUnshackle] Stage 5 failed!");
             ShowErrorAndExit(5);
         }
+        ApplyAdditionalPatches(); // Other patches for general fixes
+
         RestoreRoL(); // Restore the default RoL state
 
         cprintf("[XeUnshackle] Calling KeFlushEntireTb");

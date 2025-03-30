@@ -6,3 +6,5 @@ BOOL ApplyFreebootHVPatches();
 BOOL ApplyFreebootKernPatches();
 VOID RevertBadExploitPatches();
 VOID RestoreRoL();
+
+VOID ApplyAdditionalPatches();
