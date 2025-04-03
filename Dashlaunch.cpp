@@ -34,7 +34,7 @@ INT SysLoadDashlaunch()
 	{
 		cprintf("[SysLoadDashlaunch] Already loaded!");
 		BOOL blhHDD = FileExists(lhPath_HDD);
-		swprintf_s(wDLStatusBuf, L"Dashlaunch: Loaded! %S", blhHDD ? "[HDD mode]" : "[USB mode] DO NOT UNPLUG THE USB!");
+		swprintf_s(wDLStatusBuf, currentLocalisation->DL_Loaded, blhHDD ? currentLocalisation->DL_Mode_Hdd : currentLocalisation->DL_Mode_Usb);
 		bDLisLoaded = TRUE;
 		return 2; // Already Loaded
 	}
@@ -53,7 +53,7 @@ INT SysLoadDashlaunch()
 		if (!XGetModuleSection(GetModuleHandle(NULL), bUseHdd ? "LHHDD" : "LHUSB", &pLHData, &dwLHSize))
 		{
 			cprintf("[SysLoadDashlaunch] Failed to load! Failed to get lhelper section data!");
-			swprintf_s(wDLStatusBuf, L"Dashlaunch: FAILED! - Failed to write lhelper.xex. Section data error!");
+			swprintf_s(wDLStatusBuf, currentLocalisation->DL_Fail_SecData);
 			return 0; // Failed
 		}
 
@@ -62,7 +62,7 @@ INT SysLoadDashlaunch()
 			if (!MountHdd())
 			{
 				cprintf("[SysLoadDashlaunch] Failed to load! Failed to create Hdd mount point!");
-				swprintf_s(wDLStatusBuf, L"Dashlaunch: FAILED! - Failed to write lhelper.xex. Mount error!");
+				swprintf_s(wDLStatusBuf, currentLocalisation->DL_Fail_Mount);
 				return 0; // Failed
 			}
 		}
@@ -71,7 +71,7 @@ INT SysLoadDashlaunch()
 			if (!MountUsb())
 			{
 				cprintf("[SysLoadDashlaunch] Failed to load! Failed to create Usb mount point!");
-				swprintf_s(wDLStatusBuf, L"Dashlaunch: FAILED! - Failed to write lhelper.xex. Mount error!");
+				swprintf_s(wDLStatusBuf, currentLocalisation->DL_Fail_Mount);
 				return 0; // Failed
 			}
 		}
@@ -80,7 +80,7 @@ INT SysLoadDashlaunch()
 		if (!CWriteFile(bUseHdd ? lhPath_Mount_HDD : lhPath_Mount_USB, pLHData, dwLHSize)) // 7B error when not using a mount point
 		{
 			cprintf("[SysLoadDashlaunch] Failed to load! Failed to write lhelper.xex to %s root!", bUseHdd ? "HDD" : "USB");
-			swprintf_s(wDLStatusBuf, L"Dashlaunch: FAILED! - failed to write lhelper.xex to storage device.");
+			swprintf_s(wDLStatusBuf, currentLocalisation->DL_Fail_Write);
 			return 0; // Failed
 		}
 		cprintf("[SysLoadDashlaunch] lhelper.xex copied to %s root!", bUseHdd ? "HDD" : "USB");
@@ -90,7 +90,7 @@ INT SysLoadDashlaunch()
 	if (!XGetModuleSection(GetModuleHandle(NULL), bUseHdd ? "LXHDD" : "LXUSB", &pLaunchXexData, &dwLaunchXexSize))
 	{
 		cprintf("[SysLoadDashlaunch] Failed to load! Failed to get launch section data!");
-		swprintf_s(wDLStatusBuf, L"Dashlaunch: FAILED! - Failed to load launch.xex. Section data error!");
+		swprintf_s(wDLStatusBuf, currentLocalisation->DL_Fail_Launch_SecData);
 		return 0; // Failed
 	}
 
@@ -118,14 +118,14 @@ INT SysLoadDashlaunch()
 	if (!g_status[0])
 	{
 		cprintf("[SysLoadDashlaunch] Loaded successfully");
-		swprintf_s(wDLStatusBuf, L"Dashlaunch: Loaded! %S", bUseHdd ? "[HDD mode]" : "[USB mode] DO NOT UNPLUG THE USB!");
+		swprintf_s(wDLStatusBuf, currentLocalisation->DL_Loaded, bUseHdd ? currentLocalisation->DL_Mode_Hdd : currentLocalisation->DL_Mode_Usb);
 		bDLisLoaded = TRUE;
 		return 1; // Success
 	}
 	else
 	{
 		cprintf("[SysLoadDashlaunch] Failed! Status: %X", g_status[0]);
-		swprintf_s(wDLStatusBuf, L"Dashlaunch: FAILED! Status: %X", g_status[0]);
+		swprintf_s(wDLStatusBuf, currentLocalisation->DL_Fail_Status, g_status[0]);
 		return 0; // Failed
 	}
 }

@@ -321,33 +321,29 @@ HRESULT XeUnshackle::Render()
 
         m_Font.SetScaleFactors(1.0f, 1.0f);
 
-        m_Font.DrawText(0, 70, YellowText, L"All patches have now been applied!");
-        m_Font.DrawText(0, 100, YellowText, L"Regular JTAG/RGH functionality should now be possible on your system.");
-        m_Font.DrawText(0, 150, YellowText, L"THIS IS NOT PERSISTENT!");
-        m_Font.DrawText(0, 180, YellowText, L"Your console will return to a completely stock unmodified state once shut down.");
-        
-        m_Font.DrawText(0, 250, YellowText, wConTypeBuf);
-        m_Font.DrawText(0, 280, YellowText, wCPUKeyBuf);
-        m_Font.DrawText(0, 310, YellowText, wDVDKeyBuf);
-        m_Font.DrawText(0, 340, YellowText, L"It is HIGHLY recommended that you now go dump a copy of your nand!");
+        // General info
+        m_Font.DrawText(0, 70, YellowText, currentLocalisation->MainInfo);
 
-        m_Font.DrawText(0, 400, YellowText, wDLStatusBuf);
+        // Dashlaunch Info
+        m_Font.DrawText(0, 290, YellowText, wDLStatusBuf);
         if (bDLisLoaded)
         {
-            m_Font.DrawText(0, 430, YellowText, L"Any plugins set in launch.ini will load when you exit this app.");
-            m_Font.DrawText(0, 460, YellowText, L"LiveBlock should be working now if enabled in the launch.ini.");
-            m_Font.DrawText(0, 490, YellowText, L"Plug in your ethernet cable before exiting to allow stealths to authenticate correctly.");
+            m_Font.DrawText(0, 320, YellowText, currentLocalisation->MainScrDL);
         }
+
+        // Console Info
+        m_Font.DrawText(0, 460, YellowText, wConTypeBuf);
+        m_Font.DrawText(0, 490, YellowText, wCPUKeyBuf);
+        m_Font.DrawText(0, 520, YellowText, wDVDKeyBuf);
 
         m_Font.DrawText(0, 570, YellowText, L"https://github.com/Byrom90/XeUnshackle");
         m_Font.DrawText(0, 600, YellowText, L"https://byrom.uk");
 
-
         // User input with buttons - Make these white so they display correctly and stand out to the user
-        m_Font.DrawText(840, 520, WhiteText, GLYPH_X_BUTTON L" Save info to file");// X button icon with text 
-        m_Font.DrawText(840, 550, WhiteText, GLYPH_Y_BUTTON L" Dump 1BL to file");// Y button icon with text
+        m_Font.DrawText(840, 530, WhiteText, currentLocalisation->MainScrBtnSaveInfo);// X button icon with text 
+        m_Font.DrawText(840, 560, WhiteText, currentLocalisation->MainScrBtnDump1BL);// Y button icon with text
 
-        m_Font.DrawText(840, 600, WhiteText, L"Press " GLYPH_BACK_BUTTON L" to exit");// Back button icon with text
+        m_Font.DrawText(840, 600, WhiteText, currentLocalisation->MainScrBtnExit);// Back button icon with text
         m_Font.End();
     }
 
@@ -366,6 +362,8 @@ HRESULT XeUnshackle::Render()
 //--------------------------------------------------------------------------------------
 VOID __cdecl main()
 {
+    SetLocale(); // Set the correct locale so text will be displayed in the correct language
+
     // Part 1 - We apply the HV patches here (if required)
     if (!Hvx::CheckPPExpHVAccess()) // If we have pp access then assume we have done this previously
     {

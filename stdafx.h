@@ -264,6 +264,7 @@ extern "C" {
 
 #define THREAD_PRIORITY_TIME_CRITICAL   THREAD_BASE_PRIORITY_LOWRT
 
+#include "Locale.h"
 #include "Utils.h"
 #include "HVFuncs.h"
 #include "FreebootPatches.h"

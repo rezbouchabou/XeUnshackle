@@ -368,13 +368,14 @@ DWORD ApplyPatches(CHAR* FilePath, const VOID* DefaultPatches)
 	return patchCount;
 }
 
-static LPCWSTR buttons[1] = { L"Understood" };
+//static LPCWSTR buttons[1] = { L"Understood" };
 static MESSAGEBOX_RESULT result;
 static XOVERLAPPED overlapped;
 VOID ShowErrorAndExit(int Stage)
 {
+	LPCWSTR buttons[1] = { currentLocalisation->ExitConfirm };
 	WCHAR maintext[100];
-	swprintf_s(maintext, L"Unfortunately an error occurred while running Stage %i\n\nApp will now exit", Stage);
+	swprintf_s(maintext, currentLocalisation->ErrorandExit, Stage);
 
 	if (XShowMessageBoxUI(0, L"XeUnshackle - Error", maintext, 1, buttons, 0, XMB_ERRORICON, &result, &overlapped) == ERROR_IO_PENDING)
 	{
@@ -468,7 +469,7 @@ VOID Dump1blRomToFile()
 	if (res != 0)
 	{
 		cprintf("[Dump1blRomToFile] FAILED! Non-zero result...");
-		ShowNotify(L"[Dump1blRomToFile] FAILED! Non-zero result from Hvx...");
+		ShowNotify(currentLocalisation->D1bl_Fail_Nonzero);
 	}
 	else
 	{
@@ -481,13 +482,13 @@ VOID Dump1blRomToFile()
 			cprintf("[Dump1blRomToFile] SUCCESS! Dumped to %s", blSavePath.c_str());
 			WCHAR w1blnoti[50];
 			ZeroMemory(w1blnoti, sizeof(w1blnoti));
-			swprintf_s(w1blnoti, L"Saved to %S-1bl.bin", MoboType.c_str());
+			swprintf_s(w1blnoti, currentLocalisation->D1bl_Savedto, MoboType.c_str());
 			ShowNotify(w1blnoti);
 		}
 		else
 		{
 			cprintf("[Dump1blRomToFile] FAILED! Failed to write file...");
-			ShowNotify(L"[Dump1blRomToFile] FAILED! Failed to write file...");
+			ShowNotify(currentLocalisation->D1bl_Fail_Write);
 		}
 	}
 	DisableButtons = FALSE;
@@ -505,9 +506,9 @@ VOID SaveConsoleDataToFile()
 	sprintf_s(ConsoleInfoBuf, "%ws\n%ws\n%ws\n", wConTypeBuf, wCPUKeyBuf, wDVDKeyBuf);
 
 	if (CWriteFile("GAME:\\ConsoleInfo.txt", ConsoleInfoBuf, sizeof(ConsoleInfoBuf)))
-		ShowNotify(L"Saved to ConsoleInfo.txt");
+		ShowNotify(currentLocalisation->SaveConInfo_Success);
 	else
-		ShowNotify(L"Saving Failed!");
+		ShowNotify(currentLocalisation->SaveConInfo_Failed);
 
 	DisableButtons = FALSE;
 }
@@ -534,8 +535,8 @@ VOID BackupOrigMAC()
 	{
 
 		if (CWriteFile(MACFilePath, OrigMACAddress, sizeof(OrigMACAddress)))
-			ShowNotify(L"Original MAC dumped to OriginalMACAddress.bin");
+			ShowNotify(currentLocalisation->Dump_MAC_Success);
 		else
-			ShowNotify(L"Failed to dump original MAC!");
+			ShowNotify(currentLocalisation->Dump_MAC_Fail);
 	}
 }
