@@ -70,9 +70,37 @@ LocalisationMessages_t spanish = {
 //    
 //};
 
-//LocalisationMessages_t brazilian_portuguese = {
-//    
-//};
+LocalisationMessages_t brazilian_portuguese = {
+    // Error Messagebox
+    L"Infelizmente ocorreu um erro ao executar o Stage %i\n\nO Aplicativo será encerrado",
+    L"Entendido",
+    // Dashlaunch load status
+    L"Dashlaunch: Carregado! %ls",
+    L"[HDD mode]",
+    L"[USB mode] NÃO DESCONECTE O USB!",
+    L"Dashlaunch: FALHA! - Falha ao escrever lhelper.xex. Erro de dados da seção!",
+    L"Dashlaunch: FALHA! - Falha ao escrever lhelper.xex. Erro de montagem!",
+    L"Dashlaunch: FALHA! - Falha ao escrever lhelper.xex para dispositivo de armazenamento.",
+    L"Dashlaunch: FALHA! - Falha ao carregar launch.xex. Erro de dados da seção!",
+    L"Dashlaunch: FALHA! - Status: %X",
+    // Dump 1BL Notify
+    L"[Dump1blRomToFile] FALHA! Resultado diferente de zero de Hvx...",
+    L"Salvo em %S-1bl.bin",
+    L"[Dump1blRomToFile] FALHA! Falha ao gravar o arquivo...",
+    // Save Console Info Notify
+    L"Salvo em ConsoleInfo.txt",
+    L"Falha ao salvar!",
+    // Save Orig MAC
+    L"MAC original despejado em OriginalMACAddress.bin",
+    L"Não foi possível despejar o MAC original!",
+    // Main Screen Text
+
+    L"Todos os patches foram aplicados!\nAgora a funcionalidade JTAG/RGH regular deve ser possível no seu sistema.\n\nISSO NÃO É PERSISTENTE!\nSeu console retornará a um estado completamente original e não modificado assim que for desligado.\nÉ ALTAMENTE recomendado que você faça agora o dump de uma cópia do seu nand!",
+    L"Todos os plugins definidos em launch.ini serão carregados quando você sair deste aplicativo.\nO LiveBlock deve estar funcionando agora se estiver habilitado em launch.ini.\nConecte seu cabo de rede antes de sair para permitir que os stealths sejam autenticados corretamente.",
+    GLYPH_X_BUTTON L" Salvar informações",
+    GLYPH_Y_BUTTON L" Despejar 1BL",
+    L"Pressione " GLYPH_BACK_BUTTON L" para sair"    
+};
 
 //LocalisationMessages_t portuguese = {
 //    
@@ -134,12 +162,14 @@ VOID SetLocale()
     //case XC_LANGUAGE_ITALIAN:
     //    currentLocalisation = &italian;
     //    break;
-    //case XC_LANGUAGE_PORTUGUESE:
-    //    if (XGetLocale() == XC_LOCALE_BRAZIL)
-    //        currentLocalisation = &brazilian_portuguese;
-    //    else
-    //        currentLocalisation = &portuguese;
-    //    break;
+    case XC_LANGUAGE_PORTUGUESE:
+        currentLocalisation = &brazilian_portuguese;
+        //waiting for the translation in Portuguese
+        //if (XGetLocale() == XC_LOCALE_BRAZIL)
+        //    currentLocalisation = &brazilian_portuguese;
+        //else
+        //    currentLocalisation = &portuguese;
+        break;
     
     // === UNSUPPORTED WITHOUT NEW FONT ===
     //case XC_LANGUAGE_POLISH:
