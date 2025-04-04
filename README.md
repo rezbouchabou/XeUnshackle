@@ -53,3 +53,7 @@ Any files saved/dumped can be found in the BadUpdatePayload folder of the usb.
 - [Jeff Hamm](https://www.youtube.com/watch?v=PantVXVEVUg) - Chain break video
 - [Xbox360Hub Discord #coding-corner](https://xbox360hub.com/)
 - Anyone else who has contributed anything to the 360 scene. Apologies if any credits were missed.
+
+## Community Translations
+- Spanish - [CiberStore](https://github.com/CiberStore)
+- Portuguese (Brazil) - [ronniegchagas](https://github.com/ronniegchagas)
