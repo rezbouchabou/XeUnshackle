@@ -162,12 +162,14 @@ VOID SetLocale()
     //case XC_LANGUAGE_ITALIAN:
     //    currentLocalisation = &italian;
     //    break;
-    //case XC_LANGUAGE_PORTUGUESE:
-    //    if (XGetLocale() == XC_LOCALE_BRAZIL)
-    //        currentLocalisation = &brazilian_portuguese;
-    //    else
-    //        currentLocalisation = &portuguese;
-    //    break;
+    case XC_LANGUAGE_PORTUGUESE:
+        currentLocalisation = &brazilian_portuguese;
+        //waiting for the translation in Portuguese
+        //if (XGetLocale() == XC_LOCALE_BRAZIL)
+        //    currentLocalisation = &brazilian_portuguese;
+        //else
+        //    currentLocalisation = &portuguese;
+        break;
     
     // === UNSUPPORTED WITHOUT NEW FONT ===
     //case XC_LANGUAGE_POLISH:
