@@ -66,9 +66,36 @@ LocalisationMessages_t spanish = {
     L"Presionar " GLYPH_BACK_BUTTON L" para salir"
 };
 
-//LocalisationMessages_t canadian_french = {
-//    
-//};
+LocalisationMessages_t canadian_french = {
+    // Error Messagebox
+    L"Malheureusement, une erreur s'est produite lors de l'exécution de l'étape %i\n\nL'application va maintenant se fermer",
+    L"Compris",
+    // Dashlaunch load status
+    L"Dashlaunch: Chargé ! %ls",
+    L"[Mode HDD]",
+    L"[Mode USB] NE DÉBRANCHEZ PAS LA CLÉ USB !",
+    L"Dashlaunch: ÉCHEC ! - Échec de l'écriture de lhelper.xex. Erreur de données de section !",
+    L"Dashlaunch: ÉCHEC ! - Échec de l'écriture de lhelper.xex. Erreur de montage !",
+    L"Dashlaunch: ÉCHEC ! - Échec de l'écriture de lhelper.xex sur le périphérique de stockage.",
+    L"Dashlaunch: ÉCHEC ! - Échec du chargement de launch.xex. Erreur de données de section !",
+    L"Dashlaunch: ÉCHEC ! - Statut : %X",
+    // Dump 1BL Notify
+    L"[Dump1blRomToFile] ÉCHEC ! Résultat non nul de Hvx...",
+    L"Sauvegardé dans %S-1bl.bin",
+    L"[Dump1blRomToFile] ÉCHEC ! Échec de l'écriture du fichier...",
+    // Save Console Info Notify
+    L"Sauvegardé dans ConsoleInfo.txt",
+    L"Échec de la sauvegarde !",
+    // Save Orig MAC
+    L"MAC originale sauvegardée dans OriginalMACAddress.bin",
+    L"Échec de la sauvegarde de la MAC originale !",
+    // Main Screen Text
+    L"Tous les correctifs ont été appliqués !\nLa fonctionnalité JTAG/RGH normale devrait maintenant être possible sur votre système.\n\nCE N'EST PAS PERSISTANT !\nVotre console reviendra à un état complètement original non modifié une fois éteinte.\nIl est FORTEMENT recommandé de faire maintenant une copie de votre nand !",
+    L"Tous les plugins définis dans launch.ini seront chargés lorsque vous quitterez cette application.\nLiveBlock devrait fonctionner maintenant s'il est activé dans le launch.ini.\nBranchez votre câble Ethernet avant de quitter pour permettre aux services de stealth de s'authentifier correctement.",
+    GLYPH_X_BUTTON L" Sauvegarder les informations",
+    GLYPH_Y_BUTTON L" Sauvegarder le 1BL",
+    L"Appuyez sur " GLYPH_BACK_BUTTON L" pour quitter"
+};
 
 LocalisationMessages_t brazilian_portuguese = {
     // Error Messagebox
@@ -153,9 +180,9 @@ VOID SetLocale()
     //case XC_LANGUAGE_GERMAN:
     //    currentLocalisation = &german;
     //    break;
-    //case XC_LANGUAGE_FRENCH:
-    //    currentLocalisation = &canadian_french;
-    //    break;
+    case XC_LANGUAGE_FRENCH:
+        currentLocalisation = &canadian_french;
+        break;
     //case XC_LANGUAGE_SWEDISH:
     //    currentLocalisation = &swedish;
     //    break;
