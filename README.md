@@ -13,7 +13,7 @@ Custom Xbox 360 application designed to be used with:
 IMPORTANT: THIS IS NOT A PERMANENT MODIFICATION. YOUR CONSOLE WILL RETURN TO ITS ORIGINAL STATE UPON SHUTDOWN OR REBOOT. USE AT YOUR OWN RISK.
 
 ## SETUP INSTRUCTIONS
-# Format USB Drive:
+### Format USB Drive:
 - Format your USB drive using your Xbox 360 console. Then, copy all the provided files to the USB drive.
 
 - First-Time Setup:
