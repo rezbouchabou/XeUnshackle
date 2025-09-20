@@ -1,4 +1,4 @@
-# XeUnshackle 1.03 BETA
+# XeUnshackle 1.04 BETA
 ![XeUnshackle_Banner](XeUnshackle.jpg)
 
 Custom Xbox 360 application designed to be used with:

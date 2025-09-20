@@ -24,7 +24,7 @@
 
 #include "stdafx.h"
 
-FLOAT APP_VERS = 1.03; // App version
+FLOAT APP_VERS = 1.04; // App version
 
 // Get global access to the main D3D device
 extern D3DDevice* g_pd3dDevice;
