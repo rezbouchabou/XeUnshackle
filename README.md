@@ -1,8 +1,89 @@
 # XeUnshackle 1.03 BETA
 ![XeUnshackle_Banner](XeUnshackle.jpg)
 
-Custom Xbox 360 application designed to be used with the [Xbox360BadUpdate](https://github.com/grimdoomer/Xbox360BadUpdate) exploit.  
+Custom Xbox 360 application designed to be used with:
+[Xbox360BadUpdate](https://github.com/grimdoomer/Xbox360BadUpdate) exploit.
+[ABadAvatar](https://github.com/shutterbug2000/ABadAvatar) exploit.  
 
+## WHAT'S NEW
+1 - Remove the video animation completely and bypassing the app.
+2 - Auto-Start file (Credited to: https://github.com/klofi)
+3 - Changes some UI
+
+IMPORTANT: THIS IS NOT A PERMANENT MODIFICATION. YOUR CONSOLE WILL RETURN TO ITS ORIGINAL STATE UPON SHUTDOWN OR REBOOT. USE AT YOUR OWN RISK.
+
+
+## SETUP INSTRUCTIONS
+Format USB Drive:
+Format your USB drive using your Xbox 360 console. Then, copy all the provided files to the USB drive.
+
+First-Time Setup:
+
+If this is your first time running XeUnshackle, delete the XeUnshackleAutoStart.txt file from the BadUpdatePayload folder. This allows the app to run and dump necessary files (see Step 6).
+
+If you have already saved the required files, keep XeUnshackleAutoStart.txt (set to 0.00) to bypass the app and redirect directly to the Xbox Home after the exploit.
+
+Prepare Console:
+Insert the USB drive into your Xbox 360.
+Recommended: Disconnect Ethernet or Wi-Fi to prevent connections to Xbox Live.
+
+Run Exploit:
+Power on the console. You should see an ABadAvatar pop-up message. Wait for the exploit to complete successfully.
+
+Post-Exploit:
+After a successful exploit, the XeUnshackle app will load.
+Optional: Reconnect Ethernet/Wi-Fi at this point if needed.
+
+Save Console Data:
+
+Press X to save console information.
+
+Press Y to dump the 1bl file.
+(The original MAC address is dumped automatically.)
+
+Enable Auto-Start:
+Press Start to enable auto-start. On subsequent exploits, you will be redirected directly to Xbox Home.
+
+
+## USAGE NOTES
+XEX Files: No patching is required. Any software that runs on RGH/JTAG consoles should work.
+
+Configuration Files:
+Store your launch.ini (Dashlaunch config) and plugins on a USB drive for easy editing.
+
+Plugins:
+Plugins load when you exit the app. Insert Ethernet before exiting if using network-dependent plugins (e.g., stealth servers).
+
+Dashlaunch Dependency:
+A key executable required by Dashlaunch is copied to your storage device. If no HDD is present, this is the USB drive. Keep it connected for Dashlaunch to function.
+
+Remote Access:
+The provided files and config enable remote access via Xbox Neighborhood and JRPC2-based tools.
+
+Important Note: Stealth Servers
+Use stealth servers at your own risk. Unlike modded consoles, retail systems cannot be unbanned if detected.
+
+NAND Backup:
+Highly recommended to dump your NAND before using any stealth server plugin.
+
+MAC Address Change:
+Stealth plugins often change the console’s MAC address. This change is persistent and stored in the NAND.
+
+MAC Backup:
+A backup of your original MAC address is automatically created in the BadUpdatePayload folder on first launch.
+
+
+## RECOMMENDED APPS
+Simple 360 NAND Flasher
+XEXMenu
+
+
+## DISCLAIMER
+YOU ARE SOLELY RESPONSIBLE FOR ANY CHANGES MADE TO YOUR CONSOLE AND ANY RESULTING CONSEQUENCES. USE THIS SOFTWARE WITH CAUTION.
+
+
+
+ORIGINAL XeUnshackle README.md
 > [!IMPORTANT]  
 > **THIS APP IS RELEASED AS IS.**  
 > **YOU ARE RESPONSIBLE FOR WHAT YOU CHOOSE TO LOAD AND ANY NEGATIVE EFFECTS THAT MAY COME AS A RESULT.**  
