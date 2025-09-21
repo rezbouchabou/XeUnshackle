@@ -6,7 +6,6 @@
 //          designed to run from hdd or usb root rather than flash (nand).
 //
 // Created by: Byrom
-// Developed by: Rez
 // 
 // Credits: 
 //          grimdoomer - Xbox360BadUpdate exploit.
@@ -24,13 +23,14 @@
 
 #include "stdafx.h"
 
-FLOAT APP_VERS = 1.04; // App version
+FLOAT APP_VERS = 1.04;
 
 // Get global access to the main D3D device
 extern D3DDevice* g_pd3dDevice;
+DWORD YellowText = 0xFFFFFF00;
 DWORD WhiteText = 0xFFFFFFFF;
-DWORD BlackText = 0xFF000000;
-DOUBLE dDefaultAutoStartTimer = 0; // 0 seconds will start the xbox home screen instantly
+DWORD GreyText = 0xFF808080;
+DOUBLE dDefaultAutoStartTimer = 0; // 0 seconds (will skip the app completely)
 DOUBLE dSavedAutoStartTimer = -1.0;
 BOOL bShouldPlaySuccessVid = FALSE;
 WCHAR wTitleHeaderBuf[100];
@@ -52,7 +52,7 @@ class XeUnshackle : public ATG::Application
 
     BOOL m_bFailed;
 
-    // Countdown timer to app exiting when using Auto-Start
+    // Countdown timer to app exiting when using Auto Start
     DOUBLE m_autoStartExitTimer;
 
 public:
@@ -101,7 +101,7 @@ HRESULT XeUnshackle::Update()
     // Get the current gamepad state
     ATG::GAMEPAD* pGamepad = ATG::Input::GetMergedInput();
 
-    // If the Auto-Start timer is active, count it down
+    // If the Auto Start timer is active, count it down
     if(m_autoStartExitTimer >= 0.0)
     {
         if (!DisableButtons)
@@ -121,7 +121,7 @@ HRESULT XeUnshackle::Update()
             XLaunchNewImage(XLAUNCH_KEYWORD_DEFAULT_APP, 0);
         }
 
-        // Return here so button presses are not processed when using Auto-Start
+        // Return here so button presses are not processed when using Auto Start
         return S_OK;
     }
 
@@ -163,35 +163,39 @@ HRESULT XeUnshackle::Update()
 //--------------------------------------------------------------------------------------
 HRESULT XeUnshackle::Render()
 {
-    ATG::RenderBackground(0xFF0E7A0D, 0xFF0E7A0D);
+    // Draw a gradient filled background
+    //ATG::RenderBackground(0xff0000ff, 0xff000000);
+
+    ATG::RenderBackground(0xFF000032, 0xFF000032);
     m_Font.Begin();
     m_Font.SetScaleFactors(1.5f, 1.5f);
-    m_Font.DrawText(0, 0, WhiteText, wTitleHeaderBuf);
+    m_Font.DrawText(0, 0, YellowText, wTitleHeaderBuf);
 
     // Pre-Release Build Identifier
-    //m_Font.DrawText(840, 0, WhiteText, L"[TEST BUILD]");
+    //m_Font.DrawText(840, 0, YellowText, L"[TEST BUILD]");
     //
 
     m_Font.SetScaleFactors(1.0f, 1.0f);
 
-    // General info
-    m_Font.DrawText(0, 70, WhiteText, currentLocalisation->MainInfo);
+    // General Info
+    m_Font.DrawText(0, 70, YellowText, currentLocalisation->MainInfo);
 
     // Dashlaunch Info
-    m_Font.DrawText(0, 290, WhiteText, wDLStatusBuf);
+    m_Font.DrawText(0, 240, YellowText, wDLStatusBuf);
     if (bDLisLoaded)
     {
-        m_Font.DrawText(0, 320, WhiteText, currentLocalisation->MainScrDL);
+        m_Font.DrawText(0, 270, YellowText, currentLocalisation->MainScrDL);
     }
 
     // Console Info
-    m_Font.DrawText(0, 460, WhiteText, wConTypeBuf);
-    m_Font.DrawText(0, 490, WhiteText, wCPUKeyBuf);
-    m_Font.DrawText(0, 520, WhiteText, wDVDKeyBuf);
+    m_Font.DrawText(0, 370, YellowText, wConTypeBuf);
+    m_Font.DrawText(0, 400, YellowText, wCPUKeyBuf);
+    m_Font.DrawText(0, 430, YellowText, wDVDKeyBuf);
 
     // Credits
-    m_Font.DrawText(0, 570, WhiteText, L"Created by: Byrom");
-    m_Font.DrawText(0, 600, WhiteText, L"Developed by: Rez");
+    m_Font.DrawText(0, 540, YellowText, L"https://github.com/rezbouchabou/XeUnshackle");
+    m_Font.DrawText(0, 570, YellowText, L"https://github.com/Byrom90/XeUnshackle");
+    m_Font.DrawText(0, 600, YellowText, L"https://byrom.uk");
 
     // If the timer is not active, draw the normal button prompts, otherwise draw the countdown text
     if (m_autoStartExitTimer < 0.0)
@@ -210,7 +214,7 @@ HRESULT XeUnshackle::Render()
         swprintf_s(szCountdown, currentLocalisation->MainScrAutoStartRunning, m_autoStartExitTimer);
 
         // Draw the countdown text where the button prompts would normally be
-        m_Font.DrawText(740, 570, WhiteText, szCountdown);
+        m_Font.DrawText(740, 570, GreyText, szCountdown);
         m_Font.DrawText(740, 600, WhiteText, currentLocalisation->MainScrBtnAutoStartCancel);// B button icon with text
     }
 
@@ -304,7 +308,7 @@ VOID __cdecl main()
 
     // Grab some stuff for display in the ui
     ZeroMemory(wTitleHeaderBuf, sizeof(wTitleHeaderBuf));
-    swprintf_s(wTitleHeaderBuf, L"XeUnshackle v%.2f BETA", APP_VERS);
+    swprintf_s(wTitleHeaderBuf, L"%ls XeUnshackle v%.2f BETA %ls", GLYPH_RIGHT_TICK, APP_VERS, GLYPH_LEFT_TICK);
     // Motherboard type
     ZeroMemory(wConTypeBuf, sizeof(wConTypeBuf));
     swprintf_s(wConTypeBuf, L"Console type: %S", GetMoboByHWFlags().c_str());
@@ -320,7 +324,7 @@ VOID __cdecl main()
     ZeroMemory(wDVDKeyBuf, sizeof(wDVDKeyBuf));
     swprintf_s(wDVDKeyBuf, L"DVDKey: %08X%08X%08X%08X", *(DWORD*)(DVDKeyBytes), *(DWORD*)(DVDKeyBytes + 4), *(DWORD*)(DVDKeyBytes + 8), *(DWORD*)(DVDKeyBytes + 12));
 
-    BackupOrigMAC(); // This will cause a notify to pop before the main page has a chance to fully render but only if it hasn't been dumped previously
+    BackupOrigMAC(); // This will cause a notify to pop before the video has played completely but only if it hasn't been dumped previously
 
     // Run the ui portion of the app
     XeUnshackle atgApp;
@@ -332,7 +336,7 @@ VOID __cdecl main()
     // SKIP THE VIDEO - Go straight to UI
     bShouldPlaySuccessVid = FALSE;
 
-    // Load the saved Auto-Start timer, will return negative value when not saved, so it doesn't trigger countdown
+    // Load the saved Auto Start timer, will return negative value when not saved, so it doesn't trigger countdown
     dSavedAutoStartTimer = LoadAutoStart();
     atgApp.SetAutoStartExitTimer(dSavedAutoStartTimer);
     
